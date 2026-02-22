@@ -10,7 +10,7 @@ Summary:            Zen Browser (Twilight)
 License:            MPLv2.0
 URL:                https://github.com/zen-browser/desktop
 
-Source0:            https://github.com/zen-browser/desktop/releases/download/twilight/zen.linux-aarch64.tar.xz
+Source0:            https://github.com/zen-browser/desktop/releases/download/twilight-1/zen.linux-aarch64.tar.xz
 Source1:            %{full_name}.desktop
 Source2:            policies.json
 Source3:            %{full_name}
@@ -28,7 +28,7 @@ This is a package of the Zen web browser. Zen Browser is a fork of Firefox
 that aims to improve the browsing experience by focusing on a simple,
 performant, private and beautifully designed browser.
 
-Bugs related to Zen should be reported directly to the Zen Browser GitHub repo: 
+Bugs related to Zen should be reported directly to the Zen Browser GitHub repo:
 <https://github.com/zen-browser/desktop/issues>
 
 Bugs related to this package should be reported at this Git project:
