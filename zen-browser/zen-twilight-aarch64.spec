@@ -3,7 +3,7 @@
 %global             debug_package %{nil}
 
 Name:               zen-twilight-aarch64
-Version:            1.20t.20260328083240
+Version:            1.20t.20260329110808
 Release:            1%{?dist}
 Summary:            Zen Browser (Twilight)
 
