@@ -12,10 +12,11 @@ Summary:            Floorp Web browser
 License:            MPLv1.1 or GPLv2+ or LGPLv2+
 URL:                https://github.com/Floorp-Projects/Floorp
 
-Source0:            https://github.com/Floorp-Projects/Floorp/releases/download/v%{version}/floorp-linux-%{_arch}.tar.xz
-Source1:            %{internal_name}.desktop
-Source2:            policies.json
-Source3:            %{internal_name}
+Source0:            https://github.com/Floorp-Projects/Floorp/releases/download/v%{version}/floorp-linux-x86_64.tar.xz
+Source1:            https://github.com/Floorp-Projects/Floorp/releases/download/v%{version}/floorp-linux-aarch64.tar.xz
+Source2:            %{internal_name}.desktop
+Source3:            policies.json
+Source4:            %{internal_name}
 
 ExclusiveArch:      x86_64 aarch64
 
@@ -41,7 +42,12 @@ Bugs related to this package should be reported at this Git project:
 <https://github.com/sneexy-boi/copr>
 
 %prep
-%setup -q -n %{source_name}
+%ifarch x86_64
+%setup -q -T -b 0 -n %{source_name}
+%endif
+%ifarch aarch64
+%setup -q -T -b 1 -n %{source_name}
+%endif
 
 %install
 %__rm -rf %{buildroot}
@@ -50,11 +56,11 @@ Bugs related to this package should be reported at this Git project:
 
 %__cp -r * %{buildroot}/opt/%{application_name}
 
-%__install -D -m 0644 %{SOURCE1} -t %{buildroot}%{_datadir}/applications
+%__install -D -m 0644 %{SOURCE2} -t %{buildroot}%{_datadir}/applications
 
-%__install -D -m 0444 %{SOURCE2} -t %{buildroot}/opt/%{application_name}/distribution
+%__install -D -m 0444 %{SOURCE3} -t %{buildroot}/opt/%{application_name}/distribution
 
-%__install -D -m 0755 %{SOURCE3} -t %{buildroot}%{_bindir}
+%__install -D -m 0755 %{SOURCE4} -t %{buildroot}%{_bindir}
 
 %ifarch x86_64
 patchelf --set-rpath '$ORIGIN' %{buildroot}/opt/%{application_name}/libonnxruntime.so
