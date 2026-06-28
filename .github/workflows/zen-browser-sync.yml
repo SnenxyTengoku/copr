@@ -31,8 +31,6 @@ jobs:
 
       - name: Update zen-browser.spec
         id: update-zen
-        # Copr doesn't like using dashes for the version, so we have to manually change it to something it likes but keep it the same for
-        # the source repo.
         run: |
           # Fetch the latest release version from the Zen Browser update server
           ZEN_VER=$(curl -s "https://updates.zen-browser.app/updates/browser/Linux_x86_64-gcc3/release/update.xml" | xmllint --xpath 'string(//update/@displayVersion)' -)

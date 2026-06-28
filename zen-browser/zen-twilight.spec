@@ -67,7 +67,9 @@ mv zen %{application_name}
 
 %__install -D -m 0755 %{SOURCE4} -t %{buildroot}%{_bindir}
 
+%ifarch x86_64
 patchelf --set-rpath '$ORIGIN' %{buildroot}/opt/%{application_name}/libonnxruntime.so
+%endif
 
 %__ln_s ../../../../../../opt/%{application_name}/browser/chrome/icons/default/default128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{full_name}.png
 %__ln_s ../../../../../../opt/%{application_name}/browser/chrome/icons/default/default64.png %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/%{full_name}.png
