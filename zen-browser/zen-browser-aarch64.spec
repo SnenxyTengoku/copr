@@ -2,7 +2,7 @@
 %global             application_name zen
 %global             debug_package %{nil}
 
-Name:               zen-browser
+Name:               zen-browser-aarch64
 Version:            1.21.4b
 Release:            1%{?dist}
 Summary:            Zen Browser
@@ -29,7 +29,7 @@ This is a package of the Zen web browser. Zen Browser is a fork of Firefox
 that aims to improve the browsing experience by focusing on a simple,
 performant, private and beautifully designed browser.
 
-Bugs related to Zen should be reported directly to the Zen Browser GitHub repo: 
+Bugs related to Zen should be reported directly to the Zen Browser GitHub repo:
 <https://github.com/zen-browser/desktop/issues>
 
 Bugs related to this package should be reported at this Git project:
