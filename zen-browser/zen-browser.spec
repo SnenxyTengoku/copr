@@ -11,13 +11,16 @@ License:            MPLv2.0
 URL:                https://github.com/zen-browser/desktop
 
 Source0:            https://github.com/zen-browser/desktop/releases/download/1.21.4b/zen.linux-x86_64.tar.xz
-Source1:            %{full_name}.desktop
-Source2:            policies.json
-Source3:            %{full_name}
+Source1:            https://github.com/zen-browser/desktop/releases/download/1.21.4b/zen.linux-aarch64.tar.xz
+Source2:            %{full_name}.desktop
+Source3:            policies.json
+Source4:            %{full_name}
 
-ExclusiveArch:      x86_64
+ExclusiveArch:      x86_64 aarch64
 
+%ifarch x86_64
 BuildRequires:      patchelf
+%endif
 
 Recommends:         (plasma-browser-integration if plasma-workspace)
 Recommends:         (gnome-browser-connector if gnome-shell)
@@ -25,22 +28,30 @@ Recommends:         (gnome-browser-connector if gnome-shell)
 Requires(post):     gtk-update-icon-cache
 Conflicts:          zen-browser-avx2, zen-browser-aarch64
 
-Provides: zen-browser-avx2 = %{version}-%{release}
-Obsoletes: zen-browser-avx2 < 1.0.2.b.3-3
+Provides:           zen-browser-aarch64 = %{version}-%{release}
+Obsoletes:          zen-browser-aarch64 < 1.21.4b
+
+Provides:           zen-browser-avx2 = %{version}-%{release}
+Obsoletes:          zen-browser-avx2 < 1.0.2.b.3-3
 
 %description
 This is a package of the Zen web browser. Zen Browser is a fork of Firefox
 that aims to improve the browsing experience by focusing on a simple,
 performant, private and beautifully designed browser.
 
-Bugs related to Zen should be reported directly to the Zen Browser GitHub repo: 
+Bugs related to Zen should be reported directly to the Zen Browser GitHub repo:
 <https://github.com/zen-browser/desktop/issues>
 
 Bugs related to this package should be reported at this Git project:
 <https://github.com/sneexy-boi/copr>
 
 %prep
-%setup -q -n %{application_name}
+%ifarch x86_64
+%setup -q -T -b 0 -n %{application_name}
+%endif
+%ifarch aarch64
+%setup -q -T -b 1 -n %{application_name}
+%endif
 
 %install
 %__rm -rf %{buildroot}
@@ -49,13 +60,15 @@ Bugs related to this package should be reported at this Git project:
 
 %__cp -r * %{buildroot}/opt/%{application_name}
 
-%__install -D -m 0644 %{SOURCE1} -t %{buildroot}%{_datadir}/applications
+%__install -D -m 0644 %{SOURCE2} -t %{buildroot}%{_datadir}/applications
 
-%__install -D -m 0444 %{SOURCE2} -t %{buildroot}/opt/%{application_name}/distribution
+%__install -D -m 0444 %{SOURCE3} -t %{buildroot}/opt/%{application_name}/distribution
 
-%__install -D -m 0755 %{SOURCE3} -t %{buildroot}%{_bindir}
+%__install -D -m 0755 %{SOURCE4} -t %{buildroot}%{_bindir}
 
+%ifarch x86_64
 patchelf --set-rpath '$ORIGIN' %{buildroot}/opt/%{application_name}/libonnxruntime.so
+%endif
 
 %__ln_s ../../../../../../opt/%{application_name}/browser/chrome/icons/default/default128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{full_name}.png
 %__ln_s ../../../../../../opt/%{application_name}/browser/chrome/icons/default/default64.png %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/%{full_name}.png

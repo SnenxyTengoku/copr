@@ -11,13 +11,16 @@ License:            MPLv2.0
 URL:                https://github.com/zen-browser/desktop
 
 Source0:            https://github.com/zen-browser/desktop/releases/download/twilight-1/zen.linux-x86_64.tar.xz
-Source1:            %{full_name}.desktop
-Source2:            policies.json
-Source3:            %{full_name}
+Source1:            https://github.com/zen-browser/desktop/releases/download/twilight-1/zen.linux-aarch64.tar.xz
+Source2:            %{full_name}.desktop
+Source3:            policies.json
+Source4:            %{full_name}
 
-ExclusiveArch:      x86_64
+ExclusiveArch:      x86_64 aarch64
 
+%ifarch x86_64
 BuildRequires:      patchelf
+%endif
 
 Recommends:         (plasma-browser-integration if plasma-workspace)
 Recommends:         (gnome-browser-connector if gnome-shell)
@@ -25,8 +28,11 @@ Recommends:         (gnome-browser-connector if gnome-shell)
 Requires(post):     gtk-update-icon-cache
 Conflicts:          zen-twilight-avx2, zen-twilight-arm
 
-Provides: zen-twilight-avx2 = %{version}-%{release}
-Obsoletes: zen-twilight-avx2 < 188278485-3
+Provides:           zen-twilight-aarch64 = %{version}-%{release}
+Obsoletes:          zen-twilight-aarch64 < 1.22t.20260627112149
+
+Provides:           zen-twilight-avx2 = %{version}-%{release}
+Obsoletes:          zen-twilight-avx2 < 188278485-3
 
 %description
 This is a package of the Zen web browser. Zen Browser is a fork of Firefox
@@ -40,7 +46,12 @@ Bugs related to this package should be reported at this Git project:
 <https://github.com/sneexy-boi/copr>
 
 %prep
-%setup -q -n zen
+%ifarch x86_64
+%setup -q -T -b 0 -n zen
+%endif
+%ifarch aarch64
+%setup -q -T -b 1 -n zen
+%endif
 mv zen %{application_name}
 
 %install
@@ -50,11 +61,11 @@ mv zen %{application_name}
 
 %__cp -r * %{buildroot}/opt/%{application_name}
 
-%__install -D -m 0644 %{SOURCE1} -t %{buildroot}%{_datadir}/applications
+%__install -D -m 0644 %{SOURCE2} -t %{buildroot}%{_datadir}/applications
 
-%__install -D -m 0444 %{SOURCE2} -t %{buildroot}/opt/%{application_name}/distribution
+%__install -D -m 0444 %{SOURCE3} -t %{buildroot}/opt/%{application_name}/distribution
 
-%__install -D -m 0755 %{SOURCE3} -t %{buildroot}%{_bindir}
+%__install -D -m 0755 %{SOURCE4} -t %{buildroot}%{_bindir}
 
 patchelf --set-rpath '$ORIGIN' %{buildroot}/opt/%{application_name}/libonnxruntime.so
 
