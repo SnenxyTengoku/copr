@@ -17,7 +17,7 @@ Source1:            %{internal_name}.desktop
 Source2:            policies.json
 Source3:            %{internal_name}
 
-ExclusiveArch:      x86_64
+ExclusiveArch:      aarch64
 
 BuildRequires:      patchelf
 
@@ -25,7 +25,7 @@ Recommends:         (plasma-browser-integration if plasma-workspace)
 Recommends:         (gnome-browser-connector if gnome-shell)
 
 Requires(post):     gtk-update-icon-cache
-Conflicts:          floorp-aarch64
+Conflicts:          floorp
 
 %description
 This is a release of the Floorp web browser. Floorp is a fork of Firefox ESR

@@ -33,6 +33,7 @@ jobs:
           FLOORP_VER=$(echo $FLOORP_VER_ORIGINAL | cut -d 'v' -f 2)
           OLD_VER=$(grep '^Version:' /home/runner/work/copr/copr/floorp/floorp.spec | awk '{print $2}')
           sed -i '0,/Version:.*/s//Version:            '$FLOORP_VER'/' /home/runner/work/copr/copr/floorp/floorp.spec
+          sed -i '0,/Version:.*/s//Version:            '$FLOORP_VER'/' /home/runner/work/copr/copr/floorp/floorp-aarch64.spec
           if [ "$FLOORP_VER" != "$OLD_VER" ]; then
             echo "version_changed=true" >> $GITHUB_OUTPUT
           else
