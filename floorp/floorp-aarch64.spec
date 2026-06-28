@@ -23,6 +23,7 @@ Recommends:         (plasma-browser-integration if plasma-workspace)
 Recommends:         (gnome-browser-connector if gnome-shell)
 
 Requires(post):     gtk-update-icon-cache
+Provides:           deprecated()
 Conflicts:          floorp
 
 %description
