@@ -39,8 +39,6 @@ jobs:
           ZEN_VER_SPEC=$(echo $ZEN_VER | sed 's@-@.@g')
           OLD_VER=$(grep '^Version:' /home/runner/work/copr/copr/zen-browser/zen-browser.spec | awk '{print $2}')
           sed -i '0,/Version:.*/s//Version:            '$ZEN_VER_SPEC'/' /home/runner/work/copr/copr/zen-browser/zen-browser.spec
-          sed -i 's@https://github.com/zen-browser/desktop/releases/download/.*@https://github.com/zen-browser/desktop/releases/download/'$ZEN_VER'/zen.linux-x86_64.tar.xz@g' /home/runner/work/copr/copr/zen-browser/zen-browser.spec
-          sed -i 's@https://github.com/zen-browser/desktop/releases/download/.*@https://github.com/zen-browser/desktop/releases/download/'$ZEN_VER'/zen.linux-aarch64.tar.xz@g' /home/runner/work/copr/copr/zen-browser/zen-browser.spec
           if [ "$ZEN_VER" != "$OLD_VER" ]; then
             echo "zen_version_changed=true" >> $GITHUB_OUTPUT
           else
