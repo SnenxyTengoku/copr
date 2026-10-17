@@ -5,7 +5,7 @@
 %global             debug_package %{nil}
 
 Name:               floorp
-Version:            12.20.1
+Version:            12.20.2
 Release:            1%{?dist}
 Summary:            Floorp Web browser
 
