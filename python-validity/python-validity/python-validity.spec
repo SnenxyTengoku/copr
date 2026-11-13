@@ -75,7 +75,7 @@ install -d -m 0755 %{buildroot}%{_datadir}/selinux/packages
 
 install -m 0600 etc/python-validity/dbus-service.yaml %{buildroot}%{_sysconfdir}/python-validity/
 install -m 0644 debian/python3-validity.service %{buildroot}%{_unitdir}/
-install -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/
+install -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/python3-validity-restart-after-resume.service
 install -m 0644 debian/python3-validity.udev %{buildroot}%{_prefix}/lib/udev/rules.d/40-python3-validity.udev
 install -m 0644 selinux/python3-validity.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/
 
